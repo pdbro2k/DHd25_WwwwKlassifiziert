@@ -1,0 +1,13 @@
+matplotlib==3.10.0
+pandas==2.2.3
+seaborn==0.13.2
+torch==2.3.1
+transformers==4.47.1
+
+# Additional Dependencies for Jupyter
+notebook
+ipywidgets
+
+# Additional Dependencies for Transformer-Explainability
+gensim==4.3.3
+numpy==1.26.0
