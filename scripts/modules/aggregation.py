@@ -7,6 +7,7 @@ import pandas as pd
 import seaborn as sns
 
 from typing import List, Optional, Tuple, Union
+from pandas import Series
 from pandas._typing import AggFuncType
 
 class PolarityAggregator:
@@ -104,3 +105,9 @@ class PolarityAggregator:
             
         fig.subplots_adjust(top=1.25, right=1.1)
         return fig, axes
+    
+def majority(x: Series):
+    """
+    Applies a majority vote when aggregating. May be used as the `strategy` param of the `PolarityAggregator` class constructor.
+    """
+    return pd.Series.mode(x)[0]
