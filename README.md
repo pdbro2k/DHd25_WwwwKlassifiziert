@@ -1,5 +1,5 @@
 # DHd25_WwwwKlassifiziert
-Data and Code related to the Poster "Warum wird was wie klassifiziert? Scalable Reading + Explainable AI am Beispiel historischer Lebensverläufe" presented at DHd 2025 illustrating a classification workflow that includes XAI.
+Data and Code related to the Poster ["Warum wird was wie klassifiziert? Scalable Reading + Explainable AI am Beispiel historischer Lebensverläufe"](https://zenodo.org/records/14943204) presented at DHd 2025 illustrating a classification workflow that includes XAI.
 
 # Requirements
 
@@ -44,3 +44,19 @@ DHd25_WwwwKlassifiziert
 # Data
 
 The Data is derived from a 18th/19th century biographical subcorpus of the [ADB](https://www.deutsche-biographie.de/). Every original biography is licenced as [CC BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/3.0/de/) and can be retrieved with a URL following the pattern `https://www.deutsche-biographie.de/{SOURCE}.html#adbcontent`.
+
+# Citation
+
+```
+@inproceedings{brookshire_2025_14943204,
+    author      = {Brookshire, Patrick Daniel},
+    title       = {Warum wird was wie klassifiziert? Scalable Reading + Explainable AI am Beispiel historischer Lebensverläufe},
+    booktitle   = {Book of Abstracts - DHd 2025}
+    month       = feb,
+    year        = 2025,
+    publisher   = {Zenodo},
+    doi         = {10.5281/zenodo.14943204},
+    url         = {https://doi.org/10.5281/zenodo.14943204},
+    pages       = {535--537}
+}
+```
