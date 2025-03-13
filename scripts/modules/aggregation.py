@@ -49,8 +49,17 @@ class PolarityAggregator:
         return self.__neutral_lim
 
     # main methods
-    def aggregate(self, df: pd.DataFrame) -> pd.DataFrame:
-        return df.groupby(["source", self.__x]).agg({self.__y: self.__strategy}).reset_index().copy()
+    def aggregate(
+            self, 
+            df: pd.DataFrame, 
+            additional_columns: str = ""
+        ) -> pd.DataFrame:
+        columns = ["source", self.__x]
+        if len(additional_columns) > 0:
+            for column in additional_columns:
+                if column in df.columns:
+                    columns.append(column)
+        return df.groupby(columns).agg({self.__y: self.__strategy}).reset_index().copy()
     
     def get_single(
         self, 
@@ -70,9 +79,17 @@ class PolarityAggregator:
         self, 
         df: pd.DataFrame, 
         title: str = "", 
-        ax: Optional[Axes] = None
+        ax: Optional[Axes] = None,
+        hue: str = "",
+        hue_order: List[str] = []
     ) -> Axes:
-        ax = sns.lineplot(self.aggregate(df), x=self.__x, y=self.__y, ax=ax)
+        if hue != "" and hue in df.columns:
+            if len(hue_order) > 0:
+                ax = sns.lineplot(self.aggregate(df, [hue]), x=self.__x, y=self.__y, hue=hue, hue_order=hue_order, ax=ax)
+            else:
+                ax = sns.lineplot(self.aggregate(df, [hue]), x=self.__x, y=self.__y, hue=hue, ax=ax)
+        else:
+            ax = sns.lineplot(self.aggregate(df), x=self.__x, y=self.__y, ax=ax)
     
         ax.set(xlim=self.__xlim, ylim=self.__ylim, xlabel=self.__x, ylabel=self.__y)
         ax.title.set_text(title)
@@ -89,7 +106,9 @@ class PolarityAggregator:
         self, df: pd.DataFrame, 
         ids: List[str], 
         nrows: int, 
-        figsize: Tuple[int, int]
+        figsize: Tuple[int, int],
+        hue: str = "",
+        hue_order: List[str] = []
     ) -> Tuple[Figure, Axes]:
         ncols = math.ceil(len(ids) / nrows)
 
@@ -97,7 +116,7 @@ class PolarityAggregator:
 
         for i, idx in enumerate(ids):
             current_df = self.get_single(df, idx)
-            self.plot(current_df, idx, axes[i // ncols, i % ncols])
+            self.plot(current_df, idx, axes[i // ncols, i % ncols], hue, hue_order)
             
         if len(ids) % ncols > 0:
             for i in range(len(ids) % ncols, ncols):
